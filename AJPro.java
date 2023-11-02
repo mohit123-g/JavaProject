@@ -27,7 +27,7 @@ public class AJPro implements ActionListener {
   JButton lg, la, lm1, lm2, lm3, lm4, lb1, lb2, lb3, lb4, lc1, lc2;
  boolean flagS=false;
   int TableCount[] = { 0, 0, 0 };
-  JLabel l3, books, Members, Authors, messageLabel;
+  JLabel l3, books, Members, Authors, messageLabel,pnumLabel;
   public String Bname1, Mname1, bavl;
   String Tables[] = { "Books", "Members", "Authors" };
   JComboBox Acb, Gcb;
@@ -48,7 +48,7 @@ public class AJPro implements ActionListener {
       Gcb = new JComboBox();
       Gcb.setFont(new Font("Arial", Font.BOLD, 24));
 
-      for (int i = 0; i < 3; i++) {
+      for (int i = 0; i < 3; i++) {          //for counting
         myConn = DB.getConnection();
         String sql2 = "SELECT COUNT(*) FROM project." + Tables[i];
         PreparedStatement preparedStatement2 = myConn.prepareStatement(sql2);
@@ -60,7 +60,7 @@ public class AJPro implements ActionListener {
       }
       int i = 0;
       myConn = DB.getConnection();
-
+//for geting how may Genres and Author
       sql = "SELECT Name FROM genres";
       mystem = myConn.createStatement();
       myRs = mystem.executeQuery(sql);
@@ -77,7 +77,6 @@ public class AJPro implements ActionListener {
         Acb.addItem(myRs1.getString("First_Name") + " " + myRs1.getString("Last_Name"));
       }
 
-      
 
     } catch (Exception e) {
       System.out.println(e);
@@ -90,7 +89,7 @@ public class AJPro implements ActionListener {
     try {
       myConn = DB.getConnection();
 
-      sql = "SELECT * FROM admin";
+      sql = "SELECT * FROM admin";//for geting users or admin
       mystem = myConn.createStatement();
       myRs1 = mystem.executeQuery(sql);
       un = new String[100];
@@ -105,7 +104,7 @@ public class AJPro implements ActionListener {
       }
     } catch (Exception ex) {
     }
-
+       //login frame design start
     f1 = new JFrame("Login");
     f1.setLayout(new GridBagLayout());
     showpass=new JCheckBox("show password",false);
@@ -147,7 +146,7 @@ public class AJPro implements ActionListener {
     f1.add(t2, gc);
 
     
-
+    //for how or hide password
      showpass.addItemListener(new ItemListener() {
 
         public void itemStateChanged(ItemEvent e) {
@@ -179,10 +178,11 @@ public class AJPro implements ActionListener {
     gc.gridwidth = 2;
     f1.add(l3, gc);
 
-    li.addActionListener(this);
-    signup.addActionListener(this);
+    li.addActionListener(this);//for sign in
+    signup.addActionListener(this);//for open sign up
 
     f1.setSize(500, 300);
+    //frame will appear in center of dispaly
     f1.setLocationRelativeTo(null);
     f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     f1.setVisible(true);
@@ -210,23 +210,25 @@ public class AJPro implements ActionListener {
     lb4 = new JButton("<html><pre><font face='Verdana' size='5' color=black>       Books List</font></pre></html>");
     lc1 = new JButton("<html><pre><font face='Verdana' size='5' color=black>       Issue Book</font></pre></html>");
     lc2 = new JButton("<html><pre><font face='Verdana' size='5' color=black>       Return Book</font></pre></html>");
-    lg.addActionListener(this);
-    la.addActionListener(this);
-    lm1.addActionListener(this);
-    lm2.addActionListener(this);
-    lm3.addActionListener(this);
-    lm4.addActionListener(this);
-    lb1.addActionListener(this);
-    lb2.addActionListener(this);
-    lb3.addActionListener(this);
-    lb4.addActionListener(this);
-    lc1.addActionListener(this);
-    lc2.addActionListener(this);
+    //this
+    lg.addActionListener(this);//for open genra frame
+    la.addActionListener(this);//for open author frame
+    lm1.addActionListener(this);    //for open add member frame
+    lm2.addActionListener(this);  //for open edit memeber frame
+    lm3.addActionListener(this); //for open delet memeber frame
+    lm4.addActionListener(this);//for open list of member frame
+    lb2.addActionListener(this);    //for open add book frame
+    lb3.addActionListener(this);  //for open edit  book frame
+    lb1.addActionListener(this); //for open delet  book frame
+    lb4.addActionListener(this);//for open list of bookframe
+    lc1.addActionListener(this);//for open genra frame
+    lc2.addActionListener(this);//for open genra frame
+ //all are dashbord buttons
 
     ImageIcon i = new ImageIcon("logo.png");
     JLabel logo = new JLabel(i);
     logo.setBounds(0, 0, 400, 200);
-    JPanel panel = new JPanel();
+    JPanel panel = new JPanel();//dashbord panel
     f2.add(logo);
     panel.setLayout(new GridLayout(18, 0));
     panel.add(g);
@@ -253,10 +255,11 @@ public class AJPro implements ActionListener {
 
     lo = new JButton("Logout");
     lo.setBounds(1800, 0, 100, 50);
-    lo.addActionListener(this);
+    lo.addActionListener(this);//for log out
+    
     muser = new JButton("Manage User");
     muser.setBounds(1600, 0, 200, 50);
-    muser.addActionListener(this);
+    muser.addActionListener(this);//for open manage user frame
     f2.add(panel);
     f2.add(lo);
     f2.add(muser);
@@ -304,6 +307,7 @@ public class AJPro implements ActionListener {
     p4.setBackground(Color.black);
     // p3.setLayout(null);
 
+    //this 
     books = new JLabel(
         "<html><br></br><br></br><br></br><br></br><pre><font face='Arial' size='50' color=white>"
             + Integer.toString(TableCount[0]) + "</font></pre></html>");
@@ -313,6 +317,7 @@ public class AJPro implements ActionListener {
     Authors = new JLabel(
         "<html><br></br><br></br><br></br><br></br><pre><font face='Arial' size='50' color=white>"
             + Integer.toString(TableCount[2]) + "</font></pre></html>");
+          //are for dispaly counts
 
     p1.add(books);
     p2.add(Members);
@@ -579,6 +584,7 @@ public class AJPro implements ActionListener {
       fn = new JLabel("<html><font size='6' color=black>First Name:</font><br></br></html>");
       ln = new JLabel("<html><font size='6' color=black>Last Name:</font><br></br></html>");
       phone = new JLabel("<html><font size='6' color=black>Phone Number:</font><br></br></html>");
+      pnumLabel=new JLabel("");
       expert = new JLabel("<html><font size='6' color=black>Expertise:</font><br></br></html>");
       abo = new JLabel("<html><font size='6' color=black>About:</font></html>");
 
@@ -618,6 +624,7 @@ public class AJPro implements ActionListener {
       p2.add(tln);
       p2.add(phone);
       p2.add(tp);
+      p2.add(pnumLabel);//dgbnf
       p2.add(expert);
       p2.add(te);
       p2.add(abo);
@@ -634,7 +641,7 @@ public class AJPro implements ActionListener {
       loadTableData();
     }
 
-    // JPanel p4=new JPanel();
+  
     public void loadTableData() {
       try {
         myConn = DB.getConnection();
@@ -747,6 +754,10 @@ public class AJPro implements ActionListener {
           String idValue = tid.getText().trim().isEmpty() ? null : tid.getText(); // Assuming tid is a JTextField
           String fnameValue = tfn.getText().trim().isEmpty() ? null : tfn.getText();
           String lnameValue = tln.getText().trim().isEmpty() ? null : tln.getText();
+          if(tp.getText().length()!=10){
+              tp.setText(null);
+              pnumLabel.setText("Phone num should be of 10 digit");
+            }
           String pnumValue = tp.getText().trim().isEmpty() ? null : tp.getText();
           String expeValue = te.getText().trim().isEmpty() ? null : te.getText();
           String aboValue = ta.getText().trim().isEmpty() ? null : ta.getText();
@@ -766,6 +777,7 @@ public class AJPro implements ActionListener {
                 + Integer.toString(TableCount[2]) + "</font></pre></html>");
             MsgBox m = new MsgBox();
             messageLabel.setText("Author added successfuly");
+            pnumLabel.setText("");
             msgFrame.setVisible(true);
             System.out.println("Insert successful.");
             // You may want to update your table or UI here if needed.
@@ -810,6 +822,11 @@ public class AJPro implements ActionListener {
             lnameValue = tln.getText();
           }
           String pnumValue;
+          if(tp.getText().length()!=10){
+              tp.setText(null);
+              pnumLabel.setText("Phone num should be of 10 digit");
+            }
+
           if (tp.getText().trim().isEmpty()) {
             pnumValue = dphone;
           } else {
@@ -841,6 +858,7 @@ public class AJPro implements ActionListener {
           if (rowsAffected > 0) {
             MsgBox m = new MsgBox();
             messageLabel.setText("Author updated successfuly");
+            pnumLabel.setText("");
             msgFrame.setVisible(true);
             System.out.println("Update successful.");
 
@@ -940,6 +958,7 @@ public class AJPro implements ActionListener {
       mln = new JLabel("Last Name:");
       mln.setFont(new Font("Arial", Font.BOLD, 38));
       mpn = new JLabel("Phone Number:");
+      pnumLabel=new JLabel("");//fg
       mpn.setFont(new Font("Arial", Font.BOLD, 38));
       me = new JLabel("Email");
       me.setFont(new Font("Arial", Font.BOLD, 38));
@@ -966,6 +985,7 @@ public class AJPro implements ActionListener {
       te.setFont(new Font("Arial", Font.BOLD, 24));
 
       Msearch.addActionListener(this);
+      
       p1 = new JPanel();
       p2 = new JPanel();
       p3 = new JPanel();
@@ -1002,6 +1022,8 @@ public class AJPro implements ActionListener {
       p2.add(tln);
       p2.add(mpn);
       p2.add(tp);
+      p2.add(pnumLabel);//ghf
+      
       p2.add(me);
       p2.add(te);
       p2.add(mg);
@@ -1035,6 +1057,7 @@ public class AJPro implements ActionListener {
       p2.add(tln);
       p2.add(mpn);
       p2.add(tp);
+      p2.add(pnumLabel);//vvb
       p2.add(me);
       p2.add(te);
       p2.add(mg);
@@ -1303,7 +1326,11 @@ public class AJPro implements ActionListener {
           String idValue = Integer.toString(id1); // Replace with your logic for generating the ID
           String fnameValue = tfn.getText().trim().isEmpty() ? null : tfn.getText();
           String lnameValue = tln.getText().trim().isEmpty() ? null : tln.getText();
-          String pnumValue = tp.getText().trim().isEmpty() ? null : tp.getText();
+           if(tp.getText().length()!=10){
+              tp.setText(null);
+              pnumLabel.setText("Phone num should be of 10 digit");
+            }
+           String pnumValue = tp.getText().trim().isEmpty() ? null : tp.getText();
           String emailValue = te.getText().trim().isEmpty() ? null : te.getText();
           // String genderValue=tg.getText().trim().isEmpty() ? dgen : tg.getText();
           String genderValue;
@@ -1329,11 +1356,13 @@ public class AJPro implements ActionListener {
             messageLabel.setText("Member added successfuly");
             msgFrame.setVisible(true);
             System.out.println("Insert successful.");
+            pnumLabel.setText("");
             TableCount[1]++;
             Members.setText("<html><br></br><br></br><br></br><br></br><pre><font face='Arial' size='50' color=white>"
                 + Integer.toString(TableCount[1]) + "</font></pre></html>");
             // You may want to update your table or UI here if needed.
           } else {
+           
             MsgBox m = new MsgBox();
             messageLabel.setText("Member is not added successfuly");
             msgFrame.setVisible(true);
@@ -1364,6 +1393,10 @@ public class AJPro implements ActionListener {
           String idValue = tid.getText(); // Assuming tid is a JTextField
           String fnameValue = tfn.getText().trim().isEmpty() ? dfn : tfn.getText();
           String lnameValue = tln.getText().trim().isEmpty() ? dln : tln.getText();
+          if(tp.getText().length()!=10){
+              tp.setText(null);
+              pnumLabel.setText("Phone num should be of 10 digit");
+            }
           String pnumValue = tp.getText().trim().isEmpty() ? dphone : tp.getText();
           String emailValue = te.getText().trim().isEmpty() ? demail : te.getText();
           // String genderValue=tg.getText().trim().isEmpty() ? dgen : tg.getText();
@@ -1388,6 +1421,7 @@ public class AJPro implements ActionListener {
           if (rowsAffected > 0) {
             MsgBox m = new MsgBox();
             messageLabel.setText("Member details update successfuly");
+            pnumLabel.setText("");
             msgFrame.setVisible(true);
             System.out.println("Update successful.");
             // You may want to update your table or UI here if needed.
@@ -2201,11 +2235,11 @@ l3.setText("Book found ");
 
   public class Book_Issue_Retuen implements ActionListener {
     JPanel p1, p2, p3, p4;
-    JLabel Bid, Mid, IssDate, retDate, BookAvl, Bname, Mname, BookFalg;
+    JLabel lid,Bid, Mid, IssDate, retDate, BookAvl, Bname, Mname, BookFalg;
     JButton Issue, Cancel, Return, Sbook, Smember;
-    JTextField tbid, tmid, tissueD, treturnD;
+    JTextField tbid, tmid, tissueD, treturnD,tid;
     String bstate;
-
+      String id = "0";
     Book_Issue_Retuen(int c) {
 
       // mcount=c;
@@ -2223,6 +2257,7 @@ l3.setText("Book found ");
       BookFalg = new JLabel("");
       Bname = new JLabel("Book Name");
       Mname = new JLabel("Member Name");
+      lid=new JLabel("<html><pre><font face='Arial' size='6' color=black>Return/Issue id:</font></pre></html>");
 
       Issue = new JButton("Issue");
       Issue.setFont(new Font("Arial", Font.BOLD, 25));
@@ -2235,6 +2270,8 @@ l3.setText("Book found ");
       Smember = new JButton("search member");
       Smember.setFont(new Font("Arial", Font.BOLD, 18));
       Cancel.addActionListener(this);
+      tid=new JTextField(10);
+       tid.setFont(new Font("Arial", Font.BOLD, 18));
       tbid = new JTextField(10);
       tbid.setFont(new Font("Arial", Font.BOLD, 18));
       tmid = new JTextField(10);
@@ -2311,6 +2348,7 @@ l3.setText("Book found ");
       gc.gridx = 1;
       gc.gridy = 6;
       p2.add(treturnD, gc);
+   
       p3.setLayout(new FlowLayout(FlowLayout.CENTER, 60, 0));
       p3.add(Issue);
       p3.add(Cancel);
@@ -2318,7 +2356,7 @@ l3.setText("Book found ");
       Sbook.addActionListener(this);
       Smember.addActionListener(this);
       p1.setBounds(0, 0, 800, 50);
-      p2.setBounds(0, 50, 800, 300);
+      p2.setBounds(0, 50, 800, 310);
       p3.setBounds(0, 350, 800, 100);
       f7.add(p1);
       f7.add(p2);
@@ -2331,6 +2369,7 @@ l3.setText("Book found ");
       tmid.setEditable(false);
       tissueD.setEditable(false);
       treturnD.setEditable(false);
+      tid.setEditable(false);
       p2.setLayout(new GridBagLayout());
       GridBagConstraints gc = new GridBagConstraints();
       gc.gridx = 0;
@@ -2367,6 +2406,12 @@ l3.setText("Book found ");
       gc.gridx = 1;
       gc.gridy = 6;
       p2.add(treturnD, gc);
+          gc.gridx = 0;
+      gc.gridy = 7;
+      p2.add(lid, gc);
+      gc.gridx = 1;
+      gc.gridy = 7;
+      p2.add(tid, gc);
       p3.setLayout(new FlowLayout(FlowLayout.CENTER, 60, 0));
       p3.add(Return);
       p3.add(Cancel);
@@ -2396,6 +2441,7 @@ l3.setText("Book found ");
         DefaultTableModel tableModel = new DefaultTableModel();
 
         // Add columns to the table model (replace with your column names)
+       tableModel.addColumn("Return/Issue ID"); 
         tableModel.addColumn("Book ID");
         tableModel.addColumn("Member ID");
         tableModel.addColumn("State");
@@ -2406,14 +2452,15 @@ l3.setText("Book found ");
         while (myRs.next()) {
 
           Object[] rowData = {
-              myRs.getString(1),
+            myRs.getString(1),
               myRs.getString(2),
               myRs.getString(3),
               myRs.getString(4),
               myRs.getString(5),
+              myRs.getString(6),
 
           };
-
+         id = myRs.getString("RIid");
           tableModel.addRow(rowData);
 
           // Authors.setText(Integer.toString(Integer.parseInt(Authors.getText())+1));
@@ -2429,14 +2476,15 @@ l3.setText("Book found ");
             try {
               if (selectedRow >= 0) {
                 // Retrieve data from the selected row
-                Object bidValue = tableModel.getValueAt(selectedRow, 0);
-                Object midValue = tableModel.getValueAt(selectedRow, 1);
-                Object stateValue = tableModel.getValueAt(selectedRow, 2);
-                Object issDValue = tableModel.getValueAt(selectedRow, 3);
-                Object retDValue = tableModel.getValueAt(selectedRow, 4);
+                Object idValue = tableModel.getValueAt(selectedRow, 0);
+                Object bidValue = tableModel.getValueAt(selectedRow, 1);
+                Object midValue = tableModel.getValueAt(selectedRow, 2);
+                Object stateValue = tableModel.getValueAt(selectedRow, 3);
+                Object issDValue = tableModel.getValueAt(selectedRow, 4);
+                Object retDValue = tableModel.getValueAt(selectedRow, 5);
 
                 // Display the data in the text fields
-
+                 tid.setText(idValue.toString()); 
                 tbid.setText(bidValue.toString());
                 ManageBooks mb1 = new ManageBooks(5);
                 mb1.BSearch(bidValue.toString(), 2);
@@ -2493,12 +2541,15 @@ l3.setText("Book found ");
         myConn = DB.getConnection();
         if (e.getSource() == Issue) {
           // Perform an INSERT operation
-          // loadTableData();
+          loadTableData();
           // Create a prepared statement to safely insert data
-          String sql = "INSERT INTO `project`.`iss_rec`(`bid`,`mid`,`bstate`,`bissuedate`,`breturndate`) VALUES ( ?,?, ?, ?, ?)";
+          String sql = "INSERT INTO `project`.`iss_rec`(`RIid`,`bid`,`mid`,`bstate`,`bissuedate`,`breturndate`) VALUES ( ?,?,?, ?, ?, ?)";
           PreparedStatement preparedStatement = myConn.prepareStatement(sql);
+             int id1 = Integer.parseInt(id);
+          id1 = id1 + 1;
 
           bstate = "Issued";
+          String idValue = Integer.toString(id1);
           String bidValue = tbid.getText().trim().isEmpty() ? null : tbid.getText();
           String midValue = tmid.getText().trim().isEmpty() ? null : tmid.getText();
           String bstateValue = bstate;
@@ -2506,11 +2557,12 @@ l3.setText("Book found ");
           String breturn_DValue = treturnD.getText().trim().isEmpty() ? null : treturnD.getText();
           // String genderValue=tg.getText().trim().isEmpty() ? dgen : tg.getText();
 
-          preparedStatement.setString(1, bidValue);
-          preparedStatement.setString(2, midValue);
-          preparedStatement.setString(3, bstateValue);
-          preparedStatement.setString(4, bissue_DValue);
-          preparedStatement.setString(5, breturn_DValue);
+          preparedStatement.setString(1, idValue);
+          preparedStatement.setString(2, bidValue);
+          preparedStatement.setString(3, midValue);
+          preparedStatement.setString(4, bstateValue);
+          preparedStatement.setString(5, bissue_DValue);
+          preparedStatement.setString(6, breturn_DValue);
 
           int rowsAffected = preparedStatement.executeUpdate();
 
@@ -2538,6 +2590,10 @@ l3.setText("Book found ");
           tmid.setText("");
           tissueD.setText("");
           treturnD.setText("");
+          Bname.setText("");
+          Mname.setText("");
+          BookFalg.setText("");
+         
           // tg.setText("");
 
         }
@@ -2546,22 +2602,25 @@ l3.setText("Book found ");
           // Perform an UPDATE operation
 
           // Create a prepared statement to safely update data
-          String sql = "UPDATE `project`.`iss_rec` SET `mid`=?,`bstate`=?,`bissuedate`=?,`breturndate`=? WHERE `bid`=?";
+          String sql = "UPDATE `project`.`iss_rec` SET `bid`=?,`mid`=?,`bstate`=?,`bissuedate`=?,`breturndate`=? WHERE `RIid`=?";
           PreparedStatement preparedStatement = myConn.prepareStatement(sql);
 
           ;
           bstate = "Return";
+          String idValue = tid.getText();
           String bidValue = tbid.getText().trim().isEmpty() ? null : tbid.getText();
           String midValue = tmid.getText().trim().isEmpty() ? null : tmid.getText();
           String bstateValue = bstate;
           String bissue_DValue = tissueD.getText().trim().isEmpty() ? null : tissueD.getText();
           String breturn_DValue = treturnD.getText().trim().isEmpty() ? null : treturnD.getText();
 
-          preparedStatement.setString(5, bidValue);
-          preparedStatement.setString(1, midValue);
-          preparedStatement.setString(2, bstateValue);
-          preparedStatement.setString(3, bissue_DValue);
-          preparedStatement.setString(4, breturn_DValue);
+
+          preparedStatement.setString(1, bidValue);
+          preparedStatement.setString(2, midValue);
+          preparedStatement.setString(3, bstateValue);
+          preparedStatement.setString(4, bissue_DValue);
+          preparedStatement.setString(5, breturn_DValue);
+          preparedStatement.setString(6, idValue);
           int rowsAffected = preparedStatement.executeUpdate();
 
           if (rowsAffected > 0) {
@@ -2585,6 +2644,10 @@ l3.setText("Book found ");
           tmid.setText("");
           tissueD.setText("");
           treturnD.setText("");
+         Bname.setText("");
+          Mname.setText("");
+          BookFalg.setText("");
+           f7.dispose();
         }
 
       } catch (Exception ex) {
@@ -2597,7 +2660,8 @@ l3.setText("Book found ");
   public class ManageUser implements ActionListener {
     JLabel id, fn, ln, usern, pass;
     String type = "user";
-    public JTextField tid, tfn, tln, tun, tpass;
+    public JTextField tid, tfn, tln, tun;
+    TextField tpass;
     JCheckBox ctype;
     JButton Aadd, Aedit, Adelete;
     JTextArea ta;
@@ -2627,8 +2691,9 @@ l3.setText("Book found ");
       tln.setFont(new Font("Arial", Font.BOLD, 18));
       tun = new JTextField(10);
       tun.setFont(new Font("Arial", Font.BOLD, 18));
-      tpass = new JTextField(10);
+      tpass = new TextField(10);
       tpass.setFont(new Font("Arial", Font.BOLD, 18));
+      //  tpass.setEchoChar("*");
       ctype = new JCheckBox("Make This User as Admin", false);
 
       Aadd = new JButton("<html><font size='6' color=black>Add</font></html>");
@@ -2665,6 +2730,25 @@ l3.setText("Book found ");
       p2.add(tun);
       p2.add(pass);
       p2.add(tpass);
+       tpass.setEchoChar('*'); 
+     showpass=new JCheckBox("show password",false);
+     
+     showpass.addItemListener(new ItemListener() {
+
+        public void itemStateChanged(ItemEvent e) {
+          if(flagS==false){
+          tpass.setEchoChar((char)0);
+           flagS=true;
+        }
+          else if(flagS==true){
+            tpass.setEchoChar('*');
+            flagS=false;
+          }
+
+        }
+      });
+      p2.add(showpass);
+
       p2.add(ctype);
       ctype.addItemListener(new ItemListener() {
 
@@ -2685,6 +2769,8 @@ l3.setText("Book found ");
       f8.add(p2);
       f8.add(p3);
 
+           
+      
       f8.setSize(800, 800);
       f8.setLocationRelativeTo(null);
       loadTableData();
@@ -2721,6 +2807,25 @@ l3.setText("Book found ");
       p2.add(tun);
       p2.add(pass);
       p2.add(tpass);
+        tpass.setEchoChar('*'); 
+     showpass=new JCheckBox("show password",false);
+     
+     showpass.addItemListener(new ItemListener() {
+
+        public void itemStateChanged(ItemEvent e) {
+          if(flagS==false){
+          tpass.setEchoChar((char)0);
+           flagS=true;
+        }
+          else if(flagS==true){
+            tpass.setEchoChar('*');
+            flagS=false;
+          }
+
+        }
+      });
+      p2.add(showpass);
+
       p2.add(ctype);
       ctype.addItemListener(new ItemListener() {
 
